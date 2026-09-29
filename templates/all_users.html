@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FitBuddy - All Users</title>
+<style>
+body{margin:0;font-family:Arial;background:#111827;color:#fff}.container{width:95%;max-width:1450px;margin:auto;padding:30px 0}
+.card{background:#fff;color:#111827;border-radius:15px;padding:22px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:1200px}th,td{border:1px solid #d1d5db;padding:10px;text-align:left;vertical-align:top}th{background:#e5e7eb}
+pre{white-space:pre-wrap;max-width:400px;max-height:300px;overflow:auto}
+.delete{background:#dc2626;color:white;border:0;padding:8px 12px;border-radius:7px;cursor:pointer}
+a{color:#93c5fd}
+</style>
+</head>
+<body>
+<div class="container">
+<p><a href="/">← Back to FitBuddy</a></p>
+<h1>👥 FitBuddy - All Users</h1>
+<div class="card">
+<table>
+<thead><tr><th>User ID</th><th>Name</th><th>Age</th><th>Weight</th><th>Goal</th><th>Intensity</th><th>Original Plan</th><th>Updated Plan</th><th>Action</th></tr></thead>
+<tbody>
+{% for user in users %}
+{% set plan = user_plans[user.user_id] %}
+<tr>
+<td>{{ user.user_id }}</td><td>{{ user.username }}</td><td>{{ user.age }}</td><td>{{ user.weight }} kg</td><td>{{ user.goal }}</td><td>{{ user.intensity }}</td>
+<td><pre>{{ plan.original_plan if plan else "No plan" }}</pre></td>
+<td><pre>{{ plan.updated_plan if plan and plan.updated_plan else "No update yet" }}</pre></td>
+<td>
+<form action="/delete-user/{{ user.user_id }}" method="post" onsubmit="return confirm('Delete this user and their plan?');">
+<button class="delete" type="submit">Delete</button>
+</form>
+</td>
+</tr>
+{% else %}
+<tr><td colspan="9">No users found.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

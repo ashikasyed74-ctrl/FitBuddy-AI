@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitBuddy - AI Fitness Plan Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Roboto,Arial,sans-serif;color:#fff;background:linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.82)),url('/static/images/gym-background.svg') center/cover fixed}
+.container{width:92%;max-width:850px;margin:auto;padding:45px 0}
+.header{text-align:center;margin-bottom:25px}
+.header h1{font-size:46px;margin:0;font-weight:900}
+.header p{color:#d1d5db;font-size:18px}
+.card{background:rgba(255,255,255,.97);color:#111827;padding:32px;border-radius:18px;box-shadow:0 15px 45px rgba(0,0,0,.4)}
+.group{margin-bottom:18px}
+label{display:block;font-weight:700;margin-bottom:8px}
+input,select{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:9px;font-size:16px}
+button{width:100%;padding:15px;border:0;border-radius:9px;background:#2563eb;color:#fff;font-size:17px;font-weight:700;cursor:pointer}
+button:hover{background:#1d4ed8}
+.error{background:#fee2e2;color:#991b1b;padding:13px;border-radius:8px;margin-bottom:18px}
+.admin{text-align:center;margin-top:20px}.admin a{color:#93c5fd}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>💪 FitBuddy</h1>
+<p>AI Fitness Plan Generator using Gemini</p>
+</div>
+<div class="card">
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form action="/generate-workout" method="post">
+<div class="group"><label>Name</label><input name="username" required></div>
+<div class="group"><label>User ID</label><input name="user_id" required></div>
+<div class="group"><label>Age</label><input type="number" name="age" min="13" max="100" required></div>
+<div class="group"><label>Weight (kg)</label><input type="number" name="weight" min="1" max="500" step="0.1" required></div>
+<div class="group"><label>Fitness Goal</label>
+<select name="goal" required>
+<option value="">Select goal</option>
+<option value="weight loss">Weight Loss</option>
+<option value="muscle gain">Muscle Gain</option>
+<option value="general wellness">General Wellness</option>
+<option value="flexibility">Flexibility</option>
+</select></div>
+<div class="group"><label>Workout Intensity</label>
+<select name="intensity" required>
+<option value="">Select intensity</option>
+<option value="low">Low</option>
+<option value="medium">Medium</option>
+<option value="high">High</option>
+</select></div>
+<button type="submit">Generate 7-Day Fitness Plan</button>
+</form>
+</div>
+<div class="admin"><a href="/view-all-users">Admin / View All Users</a></div>
+</div>
+</body>
+</html>
