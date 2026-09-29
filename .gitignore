@@ -1,7 +1,2 @@
-__pycache__/
-*.pyc
-.venv/
-venv/
+FitBuddy/fitbuddy-env/
 fitbuddy-env/
-.env
-fitbuddy.db
